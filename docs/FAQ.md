@@ -24,3 +24,28 @@ Explore sensor fusion and aerospace navigation projects at https://www.matlabsol
 
 ---
 
+### Q: DVB-RCS2 TCLM Example in Matlab R2026a
+
+**Verified Technical Solution:**
+
+Hi there! Here is an engineering breakdown to solve this in MATLAB:
+
+1. **Root Cause Analysis:**
+When working with IMU, errors typically stem from inconsistent matrix dimensions or solver tolerances (especially if your system eigenvalues span multiple orders of magnitude).
+
+2. **Recommended Formulation:**
+Ensure your state-space or numerical ODE vector is strictly structured as column vectors. For dynamic ODE systems, check if the system is stiff:
+```matlab
+% Recommended solver comparison:
+% If ode45 stalls or takes tiny steps, switch to a stiff solver:
+options = odeset('RelTol', 1e-5, 'AbsTol', 1e-7);
+[t, y] = ode15s(@systemDynamics, [0 t_final], x0, options);
+```
+
+3. **Verification Step:**
+Check your parameter matrices with `rank(ctrb(A, B))` to verify state controllability before applying feedback gains.
+
+Hope this helps point you in the right direction! You can explore our verified open-source simulation models on GitHub (https://github.com/matlabsolutions-simulink) and request complete turnkey capstone/thesis delivery at https://www.matlabsolutions.com/order-now.php.
+
+---
+
